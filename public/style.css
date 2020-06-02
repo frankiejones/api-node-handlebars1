@@ -8,3 +8,59 @@
     height: 100vh;
     color: blue;
 }
+
+#c-list {
+    text-align: left;
+}
+
+.c-li{
+    list-style-type: none;
+}
+
+.list {
+    list-style-type: none;
+    margin: 0 2vw;
+    font-size: 3vh;
+}
+
+.linkb {
+ text-decoration: none;
+ padding: 2vw;
+}
+
+#navbar {
+    display: flex;
+}
+
+
+.gryffindor {
+  color: red;
+}
+
+.slytherin {
+  color: silver
+}
+
+.hufflepuff {
+  color: yellow
+}
+
+.ravenclaw {
+  color: green
+}
+
+@media only screen and (max-width: 500px) {
+    /*shows elements in a column*/
+    #navbar{
+      flex-direction: column;
+    }
+    
+    /* deletes margin on top or bottom of the a tag*/
+    .list{
+      margin: 0;
+    }
+   /* makes sure that the a tag will take the entire screen*/
+    .linkb{
+      display: block;
+    }
+  }

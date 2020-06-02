@@ -1,12 +1,14 @@
 const express = require ('express'); //npm i express-handlebars
 const hbs = require ('express-handlebars');
 const path = require('path');
+const bodyParser = require('body-parser')
 const app = express();
 require ('dotenv').config // npm i dotenv
 const nasaApp = require('./lib/nasaAPI');
 const harryPotter = require('./lib/harrypotter');
 const cocktail = require('./lib/cocktail');
-
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.engine('.hbs', hbs({
@@ -17,7 +19,7 @@ app.engine('.hbs', hbs({
 app.set('view engine', '.hbs');
 
 app.get('/', async (req, res) => { // localhost:3000/ home page
-    res.send('something or nothing')
+    res.render('home');
 });
 
 app.get('/nasa', async (req,res) => {
@@ -33,6 +35,8 @@ app.get ('/harrypotter', async(req,res) => {
     console.log(data)
     res.render('harrypotter', {data})
 });
+
+
 
 app.get('/cocktail', async (req,res) => {
     let data = await cocktail.getRandomCocktail()
@@ -50,9 +54,13 @@ app.get('/cocktail', async (req,res) => {
     res.render('cocktail', {name, glass, method, ing1, ing2, ing3, pic, ms1, ms2, ms3})
 })
 
+app.get('*', (req,res) => {
+    res.render('404', {
+        message: "this page does not exist, please go back to the previous page"
+    });
+});
 
 
-
-app.listen(3005,() => { // localhost:3000 but can be any port between 3000-8000 i think
-    console.log("listening on port 3005"); 
+app.listen(3000,() => { // localhost:3000 but can be any port between 3000-8000 i think
+    console.log("listening on port 3000"); 
 })
